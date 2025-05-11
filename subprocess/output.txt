@@ -1,0 +1,6 @@
+total 16
+drwxrwxr-x 3 jackchau jackchau 4096 May 11 19:04 .
+drwxrwxr-x 5 jackchau jackchau 4096 May 11 18:50 ..
+-rw-rw-r-- 1 jackchau jackchau  429 May 11 19:05 main.py
+-rw-rw-r-- 1 jackchau jackchau    0 May 11 19:05 output.txt
+drwxrwxr-x 5 jackchau jackchau 4096 May 11 18:51 .venv
