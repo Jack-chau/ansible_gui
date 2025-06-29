@@ -1,4 +1,4 @@
-#!/home/jackchau/programming/python/.venv/bin/python3
+#!/home/jackchau/programming/python/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
