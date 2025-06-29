@@ -14,14 +14,14 @@ class DockerFunctions( ) :
 				  🫧🫧🫧🫧🫧🫧     
 				🫧🫧🫧🫧🫧🫧🫧🫧
 				################"\___/ ===
-				{{       /  ====  \___/ 
+				{{    /  ====	\___/ 
 				\____ o         __/
 				 \    \       __/
 				  \    \    ___/
 				   \____\____/
 				
 				DOCKER: 🐳Yea!!!🐳
-				🔥🔥🔥Docker are successfully conected!🔥🔥🔥
+		🔥🔥🔥Docker are successfully connected!🔥🔥🔥
 				"""
 			print(welcome)
 		except Exception as e :
@@ -137,12 +137,17 @@ class DockerFunctions( ) :
 				network = network,
 				static_ip = static_ip
 			)
-			# if network:
-			# 	driver = self.networks.get( network )
 			if detach :
 				print( f"container {container.id} is running with detach mode" )
 			else :
 				print( f"container {container.id} is running without detach mode" )
+			if network:
+				net = self.client.networks.get( network )
+				net.connect(
+					container = container.id,
+					ipv4_address = static_ip
+				)
+		
 		except Exception as e :
 			print( f"❌Fail to run container")
 		
@@ -191,7 +196,7 @@ class DockerFunctions( ) :
 
 			# Disconnect if network already added
 			if network_name in container.attrs[ 'NetworkSettings' ][ 'Networks' ]:
-				network.disconnect( contaienr )
+				network.disconnect( container )
 			
 			# Assign network and set static IP
 			self.client.api.connect_container_to_network(
@@ -214,7 +219,8 @@ class DockerFunctions( ) :
 			print( f"Unexpected error: {str( e )}" )
 
 a = DockerFunctions()
-a.run_container( image="nginx:alpine", name="my_web_server", ports={'80/tcp':8080}, network="my-docker-network" )
-# print( a.list_all_containers())
+print(a.check_connection())
+# a.run_container( image="nginx:alpine", name="my_web_server", ports={'80/tcp':8080}, network="my-docker-network" )
+# print( a.list_all_containers() )
 # a.run_container( image = 'alpine', command = [ 'echo', 'hello', 'world'], name = 'alpine3', detach=True )
-print( a.list_runing_containers( ) )
+# print( a.list_runing_containers( ) )
