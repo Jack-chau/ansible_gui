@@ -4,6 +4,8 @@ class DockerFunctions( ) :
 	
 	def __init__( self ):
 		self.client = docker.from_env()
+
+### Define for docker checinkg info page
 	# Ping
 	def check_connection( self ) :
 		try :
@@ -27,6 +29,22 @@ class DockerFunctions( ) :
 		except Exception as e :
 			print( f"❌Failed to connect to Docker: {str( e ) }❌" )
 	
+	# Check docker client version
+	def check_docker_client_version( self ) :
+		client_ver = docker.__version__
+		print( client_ver )
+
+	def check_docker_server_version( self ) :
+		server_ver = self.client.version( )
+		print( server_ver[ "Version" ] )
+#####
+	def check_docker_context( self ) :
+		try :
+			context = self.client.contexts( ).list()
+			print( context )
+		except :
+			print( 'Not available' )
+
 	# List all containers
 	def list_all_containers( self ) :
 		containers = self.client.containers.list( all = all )
@@ -219,7 +237,7 @@ class DockerFunctions( ) :
 			print( f"Unexpected error: {str( e )}" )
 
 a = DockerFunctions()
-print(a.check_connection())
+print(a.check_docker_context())
 # a.run_container( image="nginx:alpine", name="my_web_server", ports={'80/tcp':8080}, network="my-docker-network" )
 # print( a.list_all_containers() )
 # a.run_container( image = 'alpine', command = [ 'echo', 'hello', 'world'], name = 'alpine3', detach=True )
